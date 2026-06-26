@@ -96,11 +96,27 @@ export default function ThumbnailCarousel({ items, hideThumbnails = false, exter
               </p>
             </motion.div>
           </AnimatePresence>
+
+          {/* Mobile Navigation Controls */}
+          <div className="flex lg:hidden gap-4 pt-4 z-30">
+            <button 
+              onClick={handlePrev}
+              className="bg-white/20 hover:bg-white/40 backdrop-blur transition-colors p-3 rounded-full text-white"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button 
+              onClick={handleNext}
+              className="bg-white/20 hover:bg-white/40 backdrop-blur transition-colors p-3 rounded-full text-white"
+            >
+              <ChevronRight size={24} />
+            </button>
+          </div>
         </div>
 
         {/* Right Side: Thumbnail Cards (hidden if hideThumbnails is true) */}
         {!hideThumbnails && (
-          <div className="w-full lg:w-7/12 flex flex-col justify-end items-end relative overflow-visible h-[450px]">
+          <div className="hidden lg:flex w-full lg:w-7/12 flex-col justify-end items-end relative overflow-visible h-[450px]">
             <div className="flex gap-6 absolute right-0 top-0">
               <AnimatePresence mode="popLayout" custom={direction}>
                 {orderedItems.slice(0, 3).map((item, idx) => {
@@ -166,7 +182,7 @@ export default function ThumbnailCarousel({ items, hideThumbnails = false, exter
 
         {/* Absolute Nav Controls for Projects (fixed position to avoid layout shifts) */}
         {hideThumbnails && (
-          <div className="absolute bottom-12 left-6 lg:left-12 flex gap-4 z-30">
+          <div className="hidden lg:flex absolute bottom-12 left-6 lg:left-12 gap-4 z-30">
             <button 
               onClick={handlePrev}
               className="bg-white/20 hover:bg-white/40 backdrop-blur transition-colors p-3 rounded-full text-white"

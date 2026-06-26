@@ -84,7 +84,7 @@ export default function Projects() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`relative px-2 py-2 text-sm md:text-base font-medium transition-colors duration-500 tracking-wide uppercase
+              className={`relative px-2 py-2 text-[10px] sm:text-xs md:text-sm font-bold transition-colors duration-500 tracking-wide uppercase
                 ${activeTab === tab.id 
                   ? 'text-white' 
                   : 'text-white/50 hover:text-white/80'

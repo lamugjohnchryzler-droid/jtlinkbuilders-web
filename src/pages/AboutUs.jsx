@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 
 export default function AboutUs() {
+  const location = useLocation();
   const images = ['/vis1.jpg', '/vis2.jpg', '/vis3.jpg', '/vis4.jpg'];
   const [currentImg, setCurrentImg] = useState(0);
   const [activeCard, setActiveCard] = useState(null);
@@ -13,6 +15,24 @@ export default function AboutUs() {
     return () => clearInterval(timer);
   }, [images.length]);
 
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.substring(1);
+      const element = document.getElementById(id);
+      if (element) {
+        // Wait for the 500ms 3D menu transition to fully complete!
+        // If we calculate position or use scrollIntoView while it is transitioning/scaled, 
+        // the browser will scroll the hidden-overflow body horizontally and break the layout.
+        setTimeout(() => {
+          const y = element.getBoundingClientRect().top + window.scrollY - 100;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }, 550);
+      }
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    }
+  }, [location.hash]);
+
   return (
     <div className="min-h-screen bg-[#f8fafc] relative overflow-hidden pt-40 pb-24">
       {/* Very subtle elegant background elements */}
@@ -21,7 +41,7 @@ export default function AboutUs() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Top Section: Split Layout */}
-        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24 mb-32">
+        <div id="our-story" className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24 mb-16 md:mb-32 scroll-mt-24">
           
           {/* Left Text */}
           <div className="w-full lg:w-1/2 space-y-8">
@@ -76,9 +96,9 @@ export default function AboutUs() {
         </div>
 
       {/* Vision & Mission Section with Distinguishing Background */}
-      <div className="relative py-32 bg-slate-100 border-y border-slate-200">
+      <div id="vision-mission" className="relative py-16 md:py-32 bg-slate-100 border-y border-slate-200 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <h2 className="text-6xl md:text-7xl lg:text-8xl font-black text-[#001f3f] mb-20 text-center tracking-tight">
+          <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-[#001f3f] mb-12 md:mb-20 text-center tracking-tight">
             VISION <span className="font-light text-slate-400 italic font-serif">&</span> MISSION
           </h2>
           
@@ -119,9 +139,9 @@ export default function AboutUs() {
       </div>
 
       {/* Milestones Section */}
-      <div className="relative py-32 bg-[#f8fafc]">
+      <div id="milestones" className="relative py-16 md:py-32 bg-[#f8fafc] scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <h2 className="text-6xl md:text-7xl lg:text-8xl font-black text-[#001f3f] mb-20 text-center tracking-tight">
+          <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-[#001f3f] mb-12 md:mb-20 text-center tracking-tight">
             COMPANY <span className="font-light text-slate-400 italic font-serif">MILESTONES</span>
           </h2>
           
